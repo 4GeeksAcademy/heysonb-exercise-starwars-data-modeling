@@ -19,8 +19,10 @@ class User(Base):
     email = Column(String(250), nullable=False)
     password = Column(String(250), nullable=False)
     registered = Column(DateTime, nullable=False)
-    favorites_id = Column(Integer, ForeignKey('favorites.id'))
-    favorites = relationship('Favorites')
+    Favorites_planets_id = Column(Integer, ForeignKey('favorites.id'))
+    Favorites_planets = relationship('Favorites')
+    Favorites_characters_id = Column(Integer, ForeignKey('favorites.id'))
+    Favorites_characters = relationship('Favorites')
 
 class Characters(Base):
     __tablename__ = 'characters'
@@ -54,18 +56,25 @@ class Planets(Base):
 
     
 
-class Favorites(Base):
-    __tablename__ = 'favorites'
+class Favorites_planets(Base):
+    __tablename__ = 'favorites_planets'
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
     id = Column(Integer, primary_key=True)
-    characters_id = Column(Integer, ForeignKey('characters.id'))
-    characters = relationship(Characters)
     planets_id = Column(Integer, ForeignKey('planets.id'))
     planets = relationship(Planets)
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
     
+class Favorites_characters(Base):
+    __tablename__ = 'favorites_characters'
+    # Here we define columns for the table address.
+    # Notice that each column is also a normal Python instance attribute.
+    id = Column(Integer, primary_key=True)
+    characters_id = Column(Integer, ForeignKey('characters.id'))
+    characters = relationship(Characters)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)    
 
     
 
